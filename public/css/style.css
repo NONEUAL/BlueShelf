@@ -158,3 +158,57 @@ nav {
     position: relative;
     cursor: pointer;
 }
+
+/* --- PHASE 3: CATEGORY FILTERS --- */
+.category-filter {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Space between icons */
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.cat-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.cat-btn:hover {
+    transform: translateY(-5px);
+}
+
+.cat-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #004aad; /* Blue Ring */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px; /* Emoji Size */
+    color: #004aad;
+    background-color: white;
+    transition: 0.3s;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cat-label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Active State (When selected) */
+.cat-btn.active .cat-icon {
+    background-color: #004aad;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,74,173, 0.4);
+}
+

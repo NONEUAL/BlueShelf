@@ -116,9 +116,12 @@ async function fetchProducts() {
         const response = await fetch('/api/products');
         const products = await response.json();
         productList.innerHTML = '';
+        
         products.forEach(product => {
             const card = document.createElement('div');
             card.classList.add('product-card');
+            card.setAttribute('data-category', product.category);
+
             card.innerHTML = `
                 <h3>${product.name}</h3>
                 <p class="category">${product.category}</p>
@@ -131,4 +134,30 @@ async function fetchProducts() {
             productList.appendChild(card);
         });
     } catch (error) { console.error('Error fetching products:', error); }
+}
+
+// 6. FILTER FUNCTION (New!)
+function filterItems(category, buttonElement) {
+    // A. Visuals: Update the Blue Active Circle
+    // Remove 'active' from all buttons
+    const buttons = document.querySelectorAll('.cat-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    // Add 'active' to the clicked button
+    buttonElement.classList.add('active');
+
+    // B. Logic: Hide/Show Cards
+    const cards = document.querySelectorAll('.product-card');
+    
+    cards.forEach(card => {
+        // Get the category hidden in the card
+        const cardCategory = card.getAttribute('data-category');
+
+        if (category === 'All') {
+            card.style.display = 'block'; // Show everything
+        } else if (cardCategory === category) {
+            card.style.display = 'block'; // Show matching
+        } else {
+            card.style.display = 'none';  // Hide others
+        }
+    });
 }

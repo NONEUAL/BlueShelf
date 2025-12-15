@@ -19,7 +19,46 @@
     </nav>
 
     <div class="container">
-        <h1>School Supplies</h1>
+        <!-- HEADER TITLE -->
+        <div style="text-align: center; margin-top: 20px;">
+            <h1 style="color:#333;">School Supplies</h1>
+            <p style="color:#777;">Select a category to browse items.</p>
+        </div>
+
+        <!-- CATEGORY FILTERS (New Feature) -->
+        <div class="category-filter">
+            <!-- All -->
+            <button class="cat-btn active" onclick="filterItems('All', this)">
+                <div class="cat-icon">🏠</div>
+                <span class="cat-label">All</span>
+            </button>
+            
+            <!-- Uniform -->
+            <button class="cat-btn" onclick="filterItems('Uniform', this)">
+                <div class="cat-icon">👕</div>
+                <span class="cat-label">Uniform</span>
+            </button>
+
+            <!-- Stationery -->
+            <button class="cat-btn" onclick="filterItems('Stationery', this)">
+                <div class="cat-icon">✏️</div>
+                <span class="cat-label">Stationery</span>
+            </button>
+
+            <!-- Sanitary / Hygiene -->
+            <button class="cat-btn" onclick="filterItems('Sanitary', this)">
+                <div class="cat-icon">🏥</div> <!-- Medical Cross icon -->
+                <span class="cat-label">Sanitary</span>
+            </button>
+
+            <!-- Others -->
+            <button class="cat-btn" onclick="filterItems('Others', this)">
+                <div class="cat-icon">🎒</div>
+                <span class="cat-label">Others</span>
+            </button>
+        </div>
+
+        <!-- PRODUCT GRID -->
         <div id="product-list" class="product-grid">
             <p>Loading items...</p>
         </div>
