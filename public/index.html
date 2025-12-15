@@ -6,103 +6,195 @@
     <title>Login | The Blue Shelf</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Specific styles for the login box */
-        .login-container {
+        /* Centering the Login Box */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #eef2f5;
+            margin: 0;
+        }
+
+        .auth-container {
             background: white;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 400px;
-            margin: 50px auto;
             text-align: center;
         }
+
+        .logo h2 { color: #004aad; margin-bottom: 5px; }
+        .logo p { color: #666; margin-top: 0; font-size: 0.9em; margin-bottom: 30px; }
+
         input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Fixes padding issues */
         }
+
         .btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: #004aad;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.3s;
         }
         .btn:hover { background: #003380; }
-        .message { margin-top: 15px; font-size: 14px; }
-        .error { color: red; }
-        .success { color: green; }
+
+        .toggle-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .toggle-link a { color: #004aad; text-decoration: none; font-weight: bold; cursor: pointer;}
+        
+        .error-msg { color: red; font-size: 14px; margin-top: 10px; display: none; }
+        .success-msg { color: green; font-size: 14px; margin-top: 10px; display: none; }
+
+        /* Hide elements initially */
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
+    <div class="auth-container">
         <div class="logo">
-            <!-- You can add your logo image here later -->
-            <h2 style="color: #004aad;">The Blue Shelf</h2>
+            <h2>The Blue Shelf</h2>
+            <p>St. Mary's Academy of Pasay City</p>
         </div>
-        
-        <h3>Student Registration</h3>
-        
-        <form id="registerForm">
-            <input type="text" id="fullname" placeholder="Full Name" required>
-            <input type="email" id="email" placeholder="student@sma.edu.ph" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit" class="btn">Create Account</button>
-        </form>
 
-        <p class="message" id="responseMessage"></p>
-        
-        <p style="margin-top: 20px; font-size: 12px;">
-            Already have an account? <a href="#">Log In</a>
-        </p>
+        <!-- ================= LOGIN FORM ================= -->
+        <div id="login-box">
+            <h3 style="text-align: left;">Log In</h3>
+            <form id="loginForm">
+                <input type="email" id="login-email" placeholder="Email Address (@sma.edu.ph)" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit" class="btn">Log In</button>
+            </form>
+            <div id="login-msg" class="error-msg"></div>
+
+            <div class="toggle-link">
+                Don't have an account? <a onclick="toggleForms()">Register here</a>
+            </div>
+        </div>
+
+        <!-- ================= REGISTER FORM ================= -->
+        <div id="register-box" class="hidden">
+            <h3 style="text-align: left;">Create Account</h3>
+            <form id="registerForm">
+                <input type="text" id="reg-name" placeholder="Full Name" required>
+                <input type="email" id="reg-email" placeholder="School Email (@sma.edu.ph)" required>
+                <input type="password" id="reg-password" placeholder="Create Password" required>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <div id="reg-msg" class="error-msg"></div>
+            <div id="reg-success" class="success-msg"></div>
+
+            <div class="toggle-link">
+                Already have an account? <a onclick="toggleForms()">Log In here</a>
+            </div>
+        </div>
     </div>
 
     <script>
-        // CLIENT-SIDE SCRIPT
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Stop the page from reloading
+        // TOGGLE BETWEEN LOGIN AND REGISTER
+        function toggleForms() {
+            const loginBox = document.getElementById('login-box');
+            const regBox = document.getElementById('register-box');
+            
+            // Clear messages
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.success-msg').forEach(el => el.style.display = 'none');
 
-            const fullName = document.getElementById('fullname').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const messageBox = document.getElementById('responseMessage');
+            if (loginBox.classList.contains('hidden')) {
+                loginBox.classList.remove('hidden');
+                regBox.classList.add('hidden');
+            } else {
+                loginBox.classList.add('hidden');
+                regBox.classList.remove('hidden');
+            }
+        }
 
-            // Clear previous messages
-            messageBox.textContent = 'Processing...';
-            messageBox.className = 'message';
+        // ================= HANDLE LOGIN =================
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const msgBox = document.getElementById('login-msg');
 
             try {
-                // Send data to Backend
-                const response = await fetch('/api/auth/register', {
+                const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ full_name: fullName, email, password })
+                    body: JSON.stringify({ email, password })
                 });
-
                 const data = await response.json();
 
                 if (data.success) {
-                    messageBox.textContent = data.message;
-                    messageBox.classList.add('success');
-                    // Optional: Redirect to Catalog after 2 seconds
-                    setTimeout(() => { window.location.href = 'catalog.html'; }, 2000);
+                    // Save email/role to browser for other pages to use
+                    localStorage.setItem('userEmail', data.user.email);
+                    localStorage.setItem('userRole', data.user.role);
+                    
+                    // Redirect based on role
+                    if (data.user.role === 'admin') {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'catalog.html';
+                    }
                 } else {
-                    messageBox.textContent = data.message;
-                    messageBox.classList.add('error');
+                    msgBox.textContent = data.message;
+                    msgBox.style.display = 'block';
                 }
+            } catch (err) {
+                console.error(err);
+                msgBox.textContent = "Server Error";
+                msgBox.style.display = 'block';
+            }
+        });
 
-            } catch (error) {
-                console.error(error);
-                messageBox.textContent = 'System Error. Try again.';
-                messageBox.classList.add('error');
+        // ================= HANDLE REGISTER =================
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const full_name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const msgBox = document.getElementById('reg-msg');
+            const successBox = document.getElementById('reg-success');
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ full_name, email, password })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    successBox.textContent = "Account created! Please Log In.";
+                    successBox.style.display = 'block';
+                    msgBox.style.display = 'none';
+                    // Wait 1.5 seconds then switch to login view
+                    setTimeout(() => toggleForms(), 1500);
+                } else {
+                    msgBox.textContent = data.message;
+                    msgBox.style.display = 'block';
+                    successBox.style.display = 'none';
+                }
+            } catch (err) {
+                console.error(err);
+                msgBox.textContent = "Server Error";
+                msgBox.style.display = 'block';
             }
         });
     </script>
