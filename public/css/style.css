@@ -5,17 +5,42 @@ body {
 }
 
 nav {
-    background-color: #004aad; /* The Blue Shelf Color */
+    background-color: #004aad;
     color: white;
-    padding: 1rem;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px;
 }
 
-nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; }
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
 
-.container { padding: 20px; max-width: 1200px; margin: 0 auto; }
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav a {
+    margin-left: 0 !important;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 .product-grid {
     display: grid;
@@ -24,7 +49,6 @@ nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: bol
     margin-top: 20px;
 }
 
-/* The Product Card Design */
 .product-card {
     background: white;
     border-radius: 10px;
@@ -34,10 +58,21 @@ nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: bol
     transition: transform 0.2s;
 }
 
-.product-card:hover { transform: translateY(-5px); }
+.product-card:hover {
+    transform: translateY(-5px);
+}
 
-.price { color: #004aad; font-size: 1.2rem; font-weight: bold; }
-.stock { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+.price {
+    color: #004aad;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.stock {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
 
 button.add-btn {
     background-color: #004aad;
@@ -48,122 +83,118 @@ button.add-btn {
     cursor: pointer;
     width: 100%;
 }
-button.add-btn:hover { background-color: #003380; }
 
-/* Cart Styles */
-table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
-th, td { padding: 15px; text-align: center; border-bottom: 1px solid #ddd; }
-th { background: #f8f9fa; color: #333; }
+button.add-btn:hover {
+    background-color: #003380;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f8f9fa;
+    color: #333;
+}
 
 .qty-btn {
-    background: #004aad; color: white; border: none;
-    width: 30px; height: 30px; border-radius: 5px; cursor: pointer;
+    background: #004aad;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-.qty-btn:hover { background: #003380; }
+
+.qty-btn:hover {
+    background: #003380;
+}
 
 .remove-btn {
-    background: #ff4d4d; color: white; border: none;
-    padding: 5px 10px; border-radius: 5px; cursor: pointer;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .checkout-bar {
-    background: white; padding: 20px; margin-top: 20px;
-    display: flex; justify-content: space-between; align-items: center;
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-top: 3px solid #004aad;
 }
 
 .checkout-btn {
-    background: #004aad; color: white; padding: 15px 30px;
-    border: none; border-radius: 30px; font-weight: bold; cursor: pointer;
+    background: #004aad;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-/* The Bell Icon Wrapper */
 .nav-icon {
-    position: relative; /* Allows the red dot to sit on top */
+    position: relative;
     color: white;
     text-decoration: none;
-    margin-left: 20px;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-/* The Red Dot (Hidden by default) */
 .notification-dot {
     width: 10px;
     height: 10px;
     background-color: #ff4444;
-    border: 2px solid #004aad; /* Blue border to blend with header */
+    border: 2px solid #004aad;
     border-radius: 50%;
     position: absolute;
     top: 0;
     right: -2px;
-    display: none; /* JS will turn this on */
+    display: none;
 }
 
-/* The Logout Button (For Profile Page) */
 .btn-logout {
     background-color: #fff;
     color: #dc3545;
     border: 2px solid #dc3545;
     margin-top: 30px;
     font-weight: bold;
+    display: block;
+    margin: 25px auto 0;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
+
 .btn-logout:hover {
     background-color: #dc3545;
     color: white;
 }
 
-/* 1. The Container for the links on the right */
-.menu {
-    display: flex;           /* This forces items into a horizontal row */
-    align-items: center;     /* Vertically centers them */
-    gap: 25px;               /* Adds consistent space between Shop, Cart, Bell, and Profile */
-}
-
-/* 2. Reset margins on individual links so the 'gap' handles the spacing */
-nav a {
-    margin-left: 0 !important; /* Overrides previous settings */
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    display: flex;
-    align-items: center;       /* Aligns text with icons (like the User Emoji) */
-    height: 100%;
-}
-
-/* 3. Fix the Logo alignment */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;          /* Adds breathing room on left/right edges */
-    height: 70px;             /* Fixed height for a professional look */
-    background-color: #004aad;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-}
-
-/* 4. Fix the Bell Icon specifically */
-.nav-icon {
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-}
-
-/* --- PHASE 3: CATEGORY FILTERS --- */
 .category-filter {
     display: flex;
     justify-content: center;
-    gap: 40px; /* Space between icons */
+    gap: 40px;
     margin: 30px 0;
     flex-wrap: wrap;
 }
@@ -186,11 +217,11 @@ nav {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: 2px solid #004aad; /* Blue Ring */
+    border: 2px solid #004aad;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px; /* Emoji Size */
+    font-size: 30px;
     color: #004aad;
     background-color: white;
     transition: 0.3s;
@@ -205,7 +236,6 @@ nav {
     text-transform: uppercase;
 }
 
-/* Active State (When selected) */
 .cat-btn.active .cat-icon {
     background-color: #004aad;
     color: white;
@@ -214,7 +244,7 @@ nav {
 
 .cart-header {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr; /* Columns width */
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
     padding: 15px;
     background-color: #e3effd;
     color: #004aad;
@@ -224,7 +254,6 @@ nav {
     text-align: center;
 }
 
-/* The Product Rows */
 .cart-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
@@ -235,7 +264,6 @@ nav {
     text-align: center;
 }
 
-/* First column (Product Info) alignment */
 .cart-row .item-info {
     text-align: left;
     display: flex;
@@ -243,7 +271,6 @@ nav {
     gap: 15px;
 }
 
-/* The Blue Item Placeholder (Since we don't have real images yet) */
 .item-img-placeholder {
     width: 50px;
     height: 50px;
@@ -256,7 +283,6 @@ nav {
     font-size: 20px;
 }
 
-/* Quantity Stepper: [-] [ 1 ] [+] */
 .qty-control {
     display: flex;
     justify-content: center;
@@ -274,7 +300,10 @@ nav {
     cursor: pointer;
     font-weight: bold;
 }
-.btn-qty:hover { background-color: #003380; }
+
+.btn-qty:hover {
+    background-color: #003380;
+}
 
 .qty-display {
     width: 30px;
@@ -282,7 +311,6 @@ nav {
     font-weight: bold;
 }
 
-/* Trash Icon */
 .btn-trash {
     background: none;
     border: none;
@@ -291,9 +319,11 @@ nav {
     color: #dc3545;
     transition: transform 0.2s;
 }
-.btn-trash:hover { transform: scale(1.2); }
 
-/* Total Bar at bottom */
+.btn-trash:hover {
+    transform: scale(1.2);
+}
+
 .cart-footer {
     background: white;
     padding: 20px;
@@ -303,4 +333,362 @@ nav {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.order-table th, .order-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.order-table th {
+    background-color: #34495e;
+    color: white;
+    font-weight: 500;
+}
+
+.order-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: #f1c40f;
+    color: #444;
+}
+
+.status-ready_for_pickup {
+    background-color: #3498db;
+    color: white;
+}
+
+.status-completed {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-refresh {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-refresh:hover {
+    background-color: #95a5a6;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-right: 5px;
+    transition: opacity 0.2s;
+}
+
+.btn-action:hover {
+    opacity: 0.8;
+}
+
+.btn-ready {
+    background: #3498db;
+    color: white;
+}
+
+.btn-complete {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.cart-item {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.cart-item:hover {
+    transform: translateX(5px);
+}
+
+.cart-details h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.cart-details p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.cart-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #004aad;
+}
+
+.btn-remove {
+    background: #fff;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.total-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: right;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.total-label {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.total-amount {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #004aad;
+}
+
+.btn-checkout {
+    background: #004aad;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-checkout:hover {
+    background: #003380;
+}
+
+.profile-header {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.user-avatar {
+    width: 90px;
+    height: 90px;
+    background: #004aad;
+    color: white;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.profile-header h2 {
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.profile-header p {
+    margin: 0;
+    color: #666;
+}
+
+.badge-pill {
+    display: inline-block;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 10px;
+    border: 1px solid #ced4da;
+}
+
+.alert-box {
+    background: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#edit-name-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.auth-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-container .logo h2 {
+    color: #004aad;
+    margin-bottom: 5px;
+}
+
+.auth-container .logo p {
+    color: #666;
+    margin-top: 0;
+    font-size: 0.9em;
+    margin-bottom: 30px;
+}
+
+.auth-container input, .auth-container select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.auth-container .btn {
+    width: 100%;
+    padding: 12px;
+    background: #004aad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background 0.3s;
+}
+
+.auth-container .btn:hover {
+    background: #003380;
+}
+
+.toggle-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.toggle-link a {
+    color: #004aad;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.error-msg {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
+}
+
+.success-msg {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+body.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #eef2f5;
+    margin: 0;
 }

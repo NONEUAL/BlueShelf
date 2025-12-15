@@ -1,26 +1,17 @@
-// public/js/admin.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if the user is actually an admin (Optional Security)
     const role = localStorage.getItem('userRole');
     if (role !== 'admin') {
+        // Uncomment lines below to force redirect non-admins
         // alert("Access Denied: You are not an admin.");
         // window.location.href = 'index.html';
-        // Note: Uncomment lines above if you want to force redirect non-admins
     }
 
-    // Load Data
     loadOrders();
     loadUsers();
 });
 
-// =================================================
-// 1. ORDER MANAGEMENT FUNCTIONS
-// =================================================
-
 async function loadOrders() {
     const tableBody = document.getElementById('order-rows');
-    // Don't clear immediately to avoid flickering, maybe show a spinner icon if desired
 
     try {
         const response = await fetch('/api/orders/all');
@@ -35,14 +26,9 @@ async function loadOrders() {
 
         orders.forEach(order => {
             const tr = document.createElement('tr');
-            
-            // Format Date (e.g., "10/24/2025, 2:30 PM")
             const date = new Date(order.created_at).toLocaleString();
 
-            // Status Badge Logic
-            let statusBadge = '';
             let statusClass = '';
-            
             switch(order.status) {
                 case 'pending': statusClass = 'status-pending'; break;
                 case 'ready_for_pickup': statusClass = 'status-ready'; break;
@@ -50,11 +36,9 @@ async function loadOrders() {
                 default: statusClass = 'status-cancelled';
             }
             
-            // Format status text (remove underscores)
             let statusText = order.status.replace(/_/g, ' ').toUpperCase();
-            statusBadge = `<span class="badge ${statusClass}">${statusText}</span>`;
+            let statusBadge = `<span class="badge ${statusClass}">${statusText}</span>`;
 
-            // Action Buttons Logic
             let buttons = '';
             if (order.status === 'pending') {
                 buttons = `<button class="btn-action btn-ready" onclick="updateStatus(${order.id}, 'ready_for_pickup')">Mark Ready 📦</button>`;
@@ -99,8 +83,7 @@ async function updateStatus(orderId, newStatus) {
         const data = await response.json();
         
         if (data.success) {
-            // alert(data.message); // Optional: Popups can be annoying
-            loadOrders(); // Refresh table immediately
+            loadOrders();
         } else {
             alert("Error: " + data.message);
         }
@@ -111,10 +94,6 @@ async function updateStatus(orderId, newStatus) {
     }
 }
 
-// =================================================
-// 2. USER MANAGEMENT FUNCTIONS
-// =================================================
-
 async function loadUsers() {
     const userBody = document.getElementById('user-rows');
     userBody.innerHTML = '<tr><td colspan="5">Loading users...</td></tr>';
@@ -122,14 +101,12 @@ async function loadUsers() {
     try {
         const response = await fetch('/api/auth/all');
         
-        // Check if the server reported an error (like 500 or 404)
         if (!response.ok) {
             throw new Error(`Server Error: ${response.status}`);
         }
 
         const users = await response.json();
 
-        // Safety check: Is 'users' actually a list?
         if (!Array.isArray(users)) {
             console.error("Expected array but got:", users);
             userBody.innerHTML = '<tr><td colspan="5">Error: Invalid data format.</td></tr>';
@@ -146,7 +123,6 @@ async function loadUsers() {
         users.forEach(user => {
             const tr = document.createElement('tr');
             
-            // Prevent deleting the Admin logic
             let deleteBtn = `<button class="btn-action" style="background:red; color:white;" onclick="deleteUser(${user.id})">Delete</button>`;
             if(user.role === 'admin') deleteBtn = '<span style="color:#666; font-style:italic;">Admin</span>';
 
@@ -177,7 +153,7 @@ async function deleteUser(id, email) {
 
         if (data.success) {
             alert("User removed successfully.");
-            loadUsers(); // Refresh the list
+            loadUsers();
         } else {
             alert("Error: " + data.message);
         }

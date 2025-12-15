@@ -5,144 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile | The Blue Shelf</title>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Specific Styles for Profile Page */
-        .profile-header {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .user-avatar {
-            width: 90px;
-            height: 90px;
-            background: #004aad;
-            color: white;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .profile-header h2 {
-            margin: 10px 0 5px;
-            color: #333;
-        }
-
-        .profile-header p {
-            margin: 0;
-            color: #666;
-        }
-
-        /* The Grade/Strand Badge */
-        .badge-pill {
-            display: inline-block;
-            background-color: #e9ecef;
-            color: #495057;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-top: 10px;
-            border: 1px solid #ced4da;
-        }
-
-        /* The Red Logout Button */
-        .btn-logout {
-            display: block;
-            margin: 25px auto 0;
-            padding: 10px 30px;
-            background-color: transparent;
-            color: #dc3545;
-            border: 2px solid #dc3545;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-logout:hover {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        /* Notification Alert Box */
-        .alert-box {
-            background: #d1e7dd;
-            color: #0f5132;
-            border: 1px solid #badbcc;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            animation: slideIn 0.5s ease-out;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Edit Name Input Styling */
-        #edit-name-input {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- STANDARD NAVIGATION HEADER -->
     <nav>
         <div class="logo">The Blue Shelf</div>
         <div class="menu">
             <a href="catalog.html">Shop</a>
             <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-            <!-- main.js will automatically add the Bell Icon and "My Account" link here -->
         </div>
     </nav>
 
     <div class="container">
         <div class="profile-header">
-                <div class="user-avatar">👤</div>
-        
-                <h2 id="display-name">Student Name</h2>
-                <p id="display-email">student@sma.edu.ph</p>
-                <p id="display-badge" class="badge" style="display:inline-block; background:#eee; padding:5px 10px; border-radius:10px; margin-top:5px; font-weight:bold; color:#555;">
-                    Loading...
-                </p>
+            <div class="user-avatar">👤</div>
+    
+            <h2 id="display-name">Student Name</h2>
+            <p id="display-email">student@sma.edu.ph</p>
+            <p id="display-badge" class="badge" style="display:inline-block; background:#eee; padding:5px 10px; border-radius:10px; margin-top:5px; font-weight:bold; color:#555;">
+                Loading...
+            </p>
 
-                <br>
-                <button class="btn btn-logout" onclick="logout()">LOGOUT</button>
-            </div>
-
-            <!-- 2. Notifications Area (Appears if order is ready) -->
-            <div id="notifications" class="notification-area"></div>
-
-            <!-- 3. Order History List -->
-            <h3 style="border-bottom: 2px solid #004aad; padding-bottom: 10px; display: inline-block;">My Recent Purchases</h3>
-            
-            <div id="order-history" class="product-grid" style="grid-template-columns: 1fr;">
-                <p style="color: #888;">Checking records...</p>
-            </div>
-            
+            <br>
+            <button class="btn btn-logout" onclick="logout()">LOGOUT</button>
         </div>
 
+        <div id="notifications" class="notification-area"></div>
+
+        <h3 style="border-bottom: 2px solid #004aad; padding-bottom: 10px; display: inline-block;">My Recent Purchases</h3>
+        
+        <div id="order-history" class="product-grid" style="grid-template-columns: 1fr;">
+            <p style="color: #888;">Checking records...</p>
+        </div>
     </div>
 
-    <!-- REQUIRED SCRIPTS -->
-    <script src="js/cart.js"></script>    <!-- Updates Cart Count in Header -->
-    <script src="js/main.js"></script>    <!-- Handles Nav & Auth Checks -->
-    <script src="js/profile.js"></script> <!-- Handles Profile Data Loading -->
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/profile.js"></script>
 
 </body>
 </html>

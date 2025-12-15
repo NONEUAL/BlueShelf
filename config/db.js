@@ -10,7 +10,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
 db.serialize(() => {
     db.run("PRAGMA foreign_keys = ON");
 
-    // 1. Users Table
     db.run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         full_name TEXT,
@@ -21,7 +20,6 @@ db.serialize(() => {
         strand TEXT
     )`);
 
-    // 2. Products Table
     db.run(`CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
@@ -31,7 +29,6 @@ db.serialize(() => {
         image_url TEXT
     )`);
 
-    // 3. Orders Table
     db.run(`CREATE TABLE IF NOT EXISTS orders (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_email TEXT, 
@@ -42,7 +39,6 @@ db.serialize(() => {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
-    // 4. Order Items Table
     db.run(`CREATE TABLE IF NOT EXISTS order_items (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER,
@@ -52,7 +48,6 @@ db.serialize(() => {
         FOREIGN KEY(order_id) REFERENCES orders(id)
     )`);
 
-    // Seed Data
     db.get("SELECT count(*) as count FROM products", (err, row) => {
         if (row.count === 0) {
             console.log("⚡ Seeding database...");

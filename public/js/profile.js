@@ -1,5 +1,3 @@
-// public/js/profile.js
-
 document.addEventListener('DOMContentLoaded', () => {
     initProfile();
 });
@@ -8,30 +6,24 @@ async function initProfile() {
     const email = localStorage.getItem('userEmail');
     if (!email) return; 
 
-    // 1. GET USER DATA
-    // Name Logic
     let savedName = localStorage.getItem('userName');
     if (!savedName) {
         let namePart = email.split('@')[0];
         savedName = namePart.split('.').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
     }
 
-    // Grade & Strand Logic (NEW)
     const savedGrade = localStorage.getItem('userGrade') || 'Grade ?';
     const savedStrand = localStorage.getItem('userStrand') || 'Dept';
 
-    // 2. UPDATE UI
     document.getElementById('display-email').textContent = email;
-    document.getElementById('display-badge').textContent = `${savedGrade} - ${savedStrand}`; // Updates the badge
+    document.getElementById('display-badge').textContent = `${savedGrade} - ${savedStrand}`;
 
-    // Render Name with Edit Button
     const nameContainer = document.getElementById('display-name');
     nameContainer.innerHTML = `
         <span id="name-text">${savedName}</span> 
         <span onclick="enableEdit()" style="cursor:pointer; font-size:0.6em; color:#004aad; margin-left:10px;">✎ Edit</span>
     `;
 
-    // 3. FETCH ORDERS
     const notifArea = document.getElementById('notifications');
     const historyArea = document.getElementById('order-history');
 
@@ -52,7 +44,6 @@ async function initProfile() {
         }
 
         orders.forEach(order => {
-            // Check for Ready for Pickup
             if (order.status === 'ready_for_pickup') {
                 const alert = document.createElement('div');
                 alert.className = 'alert-box';
@@ -63,7 +54,6 @@ async function initProfile() {
                 notifArea.appendChild(alert);
             }
             
-            // Build History Card
             let statusColor = '#666';
             if(order.status === 'ready_for_pickup') statusColor = '#004aad';
             if(order.status === 'completed') statusColor = 'green';
@@ -87,7 +77,9 @@ async function initProfile() {
             `;
             historyArea.appendChild(card);
         });
-    } catch (error) { console.error(error); }
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function enableEdit() {
@@ -114,6 +106,10 @@ async function saveName() {
         if (data.success) {
             localStorage.setItem('userName', newName); 
             initProfile(); 
-        } else { alert("Error updating name."); }
-    } catch (error) { console.error(error); }
+        } else {
+            alert("Error updating name.");
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
