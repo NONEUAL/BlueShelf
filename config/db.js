@@ -16,7 +16,9 @@ db.serialize(() => {
         full_name TEXT,
         email TEXT UNIQUE,
         password TEXT,
-        role TEXT DEFAULT 'student'
+        role TEXT DEFAULT 'student',
+        grade_level TEXT,
+        strand TEXT
     )`);
 
     // 2. Products Table
@@ -29,16 +31,18 @@ db.serialize(() => {
         image_url TEXT
     )`);
 
-    // 3. Orders Table (New!)
+    // 3. Orders Table
     db.run(`CREATE TABLE IF NOT EXISTS orders (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_email TEXT, 
         total_amount REAL,
         status TEXT DEFAULT 'pending',
+        claim_method TEXT,
+        delivery_address TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
-    // 4. Order Items Table (New!)
+    // 4. Order Items Table
     db.run(`CREATE TABLE IF NOT EXISTS order_items (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         order_id INTEGER,
@@ -48,7 +52,7 @@ db.serialize(() => {
         FOREIGN KEY(order_id) REFERENCES orders(id)
     )`);
 
-    // Seed Data (Only if empty)
+    // Seed Data
     db.get("SELECT count(*) as count FROM products", (err, row) => {
         if (row.count === 0) {
             console.log("⚡ Seeding database...");

@@ -6,63 +6,120 @@
     <title>Shopping Cart | The Blue Shelf</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Simple Cart Styles */
+        /* Cart Specific Styles */
         .cart-item {
             background: white;
-            padding: 15px;
-            margin-bottom: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
         }
-        .total-box {
+        .cart-item:hover {
+            transform: translateX(5px);
+        }
+
+        .cart-details h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .cart-details p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cart-actions {
             text-align: right;
-            margin-top: 20px;
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .cart-price {
+            font-size: 1.2rem;
             font-weight: bold;
             color: #004aad;
         }
+
+        .btn-remove {
+            background: #fff;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .btn-remove:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        .total-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: right;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .total-label { font-size: 1.1rem; color: #555; }
+        .total-amount { font-size: 2rem; font-weight: bold; color: #004aad; }
+
         .btn-checkout {
-            background: #28a745;
+            background: #004aad;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 15px 40px;
+            font-size: 1.1rem;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
         }
-        .btn-checkout:hover { background: #218838; }
-        .btn-remove { background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;}
+        .btn-checkout:hover { background: #003380; }
     </style>
 </head>
 <body>
 
+    <!-- PHASE 2: STANDARDIZED HEADER -->
     <nav>
         <div class="logo">The Blue Shelf</div>
         <div class="menu">
             <a href="catalog.html">Shop</a>
-            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+            <!-- The ID 'cart-count' is updated by cart.js -->
+            <a href="cart.html" style="font-weight: bold; border-bottom: 2px solid white;">Cart (<span id="cart-count">0</span>)</a>
+            <!-- main.js will automatically inject the Bell Icon and Profile Link here -->
         </div>
     </nav>
 
     <div class="container">
         <h1>Your Shopping Cart</h1>
+        
+        <!-- Cart Items List -->
         <div id="cart-items">
-            <!-- Items appear here -->
-            <p>Your cart is empty.</p>
+            <!-- JS will inject items here -->
+            <p style="text-align: center; padding: 20px;">Loading your cart...</p>
         </div>
 
+        <!-- Checkout Section -->
         <div class="total-box">
-            Total: ₱<span id="total-price">0.00</span>
+            <span class="total-label">Total Amount:</span><br>
+            <span class="total-amount">₱<span id="total-price">0.00</span></span>
             <br>
-            <button class="btn-checkout" onclick="checkout()">Place Order</button>
+            <button class="btn-checkout" onclick="checkout()">Checkout ➔</button>
         </div>
-        <p id="order-message"></p>
     </div>
 
-    <script src="js/cart.js"></script>
+    <!-- Required Scripts -->
+    <script src="js/main.js"></script> <!-- Security & Header Logic -->
+    <script src="js/cart.js"></script> <!-- Cart & Checkout Logic -->
+
 </body>
 </html>

@@ -76,3 +76,87 @@ th { background: #f8f9fa; color: #333; }
     background: #004aad; color: white; padding: 15px 30px;
     border: none; border-radius: 30px; font-weight: bold; cursor: pointer;
 }
+
+/* The Bell Icon Wrapper */
+.nav-icon {
+    position: relative; /* Allows the red dot to sit on top */
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* The Red Dot (Hidden by default) */
+.notification-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff4444;
+    border: 2px solid #004aad; /* Blue border to blend with header */
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: -2px;
+    display: none; /* JS will turn this on */
+}
+
+/* The Logout Button (For Profile Page) */
+.btn-logout {
+    background-color: #fff;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    margin-top: 30px;
+    font-weight: bold;
+}
+.btn-logout:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* --- HEADER ALIGNMENT FIXES --- */
+
+/* 1. The Container for the links on the right */
+.menu {
+    display: flex;           /* This forces items into a horizontal row */
+    align-items: center;     /* Vertically centers them */
+    gap: 25px;               /* Adds consistent space between Shop, Cart, Bell, and Profile */
+}
+
+/* 2. Reset margins on individual links so the 'gap' handles the spacing */
+nav a {
+    margin-left: 0 !important; /* Overrides previous settings */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;       /* Aligns text with icons (like the User Emoji) */
+    height: 100%;
+}
+
+/* 3. Fix the Logo alignment */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;          /* Adds breathing room on left/right edges */
+    height: 70px;             /* Fixed height for a professional look */
+    background-color: #004aad;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* 4. Fix the Bell Icon specifically */
+.nav-icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}

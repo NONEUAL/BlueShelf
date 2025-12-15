@@ -6,64 +6,19 @@
     <title>Login | The Blue Shelf</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Centering the Login Box */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #eef2f5;
-            margin: 0;
-        }
-
-        .auth-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #eef2f5; margin: 0; font-family: sans-serif; }
+        .auth-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
         .logo h2 { color: #004aad; margin-bottom: 5px; }
         .logo p { color: #666; margin-top: 0; font-size: 0.9em; margin-bottom: 30px; }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box; /* Fixes padding issues */
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: #004aad;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; background-color: #fff; }
+        .btn { width: 100%; padding: 12px; background: #004aad; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 15px; transition: background 0.3s; }
         .btn:hover { background: #003380; }
-
-        .toggle-link {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
+        .toggle-link { margin-top: 20px; font-size: 14px; color: #555; }
         .toggle-link a { color: #004aad; text-decoration: none; font-weight: bold; cursor: pointer;}
-        
         .error-msg { color: red; font-size: 14px; margin-top: 10px; display: none; }
         .success-msg { color: green; font-size: 14px; margin-top: 10px; display: none; }
-
-        /* Hide elements initially */
         .hidden { display: none; }
+        .form-row { display: flex; gap: 10px; }
     </style>
 </head>
 <body>
@@ -74,7 +29,7 @@
             <p>St. Mary's Academy of Pasay City</p>
         </div>
 
-        <!-- ================= LOGIN FORM ================= -->
+        <!-- LOGIN FORM -->
         <div id="login-box">
             <h3 style="text-align: left;">Log In</h3>
             <form id="loginForm">
@@ -83,50 +38,54 @@
                 <button type="submit" class="btn">Log In</button>
             </form>
             <div id="login-msg" class="error-msg"></div>
-
-            <div class="toggle-link">
-                Don't have an account? <a onclick="toggleForms()">Register here</a>
-            </div>
+            <div class="toggle-link">Don't have an account? <a onclick="toggleForms()">Register here</a></div>
         </div>
 
-        <!-- ================= REGISTER FORM ================= -->
+        <!-- REGISTER FORM (No Full Name Input) -->
         <div id="register-box" class="hidden">
             <h3 style="text-align: left;">Create Account</h3>
+            <p style="font-size:0.8em; color:#666; text-align:left; margin-bottom:15px;">Your name will be automatically set based on your email.</p>
             <form id="registerForm">
-                <input type="text" id="reg-name" placeholder="Full Name" required>
+                
+                <div class="form-row">
+                    <select id="reg-grade" required>
+                        <option value="" disabled selected>Grade Level</option>
+                        <option value="Grade 11">Grade 11</option>
+                        <option value="Grade 12">Grade 12</option>
+                        <option value="Faculty">Faculty/Staff</option>
+                    </select>
+                    
+                    <select id="reg-strand" required>
+                        <option value="" disabled selected>Strand</option>
+                        <option value="STEM">STEM</option>
+                        <option value="ABM">ABM</option>
+                        <option value="HUMSS">HUMSS</option>
+                        <option value="GAS">GAS</option>
+                        <option value="TVL">TVL</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </div>
+
                 <input type="email" id="reg-email" placeholder="School Email (@sma.edu.ph)" required>
                 <input type="password" id="reg-password" placeholder="Create Password" required>
                 <button type="submit" class="btn">Sign Up</button>
             </form>
             <div id="reg-msg" class="error-msg"></div>
             <div id="reg-success" class="success-msg"></div>
-
-            <div class="toggle-link">
-                Already have an account? <a onclick="toggleForms()">Log In here</a>
-            </div>
+            <div class="toggle-link">Already have an account? <a onclick="toggleForms()">Log In here</a></div>
         </div>
     </div>
 
     <script>
-        // TOGGLE BETWEEN LOGIN AND REGISTER
         function toggleForms() {
             const loginBox = document.getElementById('login-box');
             const regBox = document.getElementById('register-box');
-            
-            // Clear messages
-            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.success-msg').forEach(el => el.style.display = 'none');
-
-            if (loginBox.classList.contains('hidden')) {
-                loginBox.classList.remove('hidden');
-                regBox.classList.add('hidden');
-            } else {
-                loginBox.classList.add('hidden');
-                regBox.classList.remove('hidden');
-            }
+            document.querySelectorAll('.error-msg, .success-msg').forEach(el => el.style.display = 'none');
+            loginBox.classList.toggle('hidden');
+            regBox.classList.toggle('hidden');
         }
 
-        // ================= HANDLE LOGIN =================
+        // LOGIN Logic
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
@@ -142,16 +101,13 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    // Save email/role to browser for other pages to use
                     localStorage.setItem('userEmail', data.user.email);
                     localStorage.setItem('userRole', data.user.role);
+                    // We save the generated name so we can display it later
+                    localStorage.setItem('userName', data.user.name); 
                     
-                    // Redirect based on role
-                    if (data.user.role === 'admin') {
-                        window.location.href = 'admin.html';
-                    } else {
-                        window.location.href = 'catalog.html';
-                    }
+                    if (data.user.role === 'admin') window.location.href = 'admin.html';
+                    else window.location.href = 'catalog.html';
                 } else {
                     msgBox.textContent = data.message;
                     msgBox.style.display = 'block';
@@ -163,10 +119,11 @@
             }
         });
 
-        // ================= HANDLE REGISTER =================
+        // REGISTER Logic (Removed Full Name)
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const full_name = document.getElementById('reg-name').value;
+            const grade_level = document.getElementById('reg-grade').value;
+            const strand = document.getElementById('reg-strand').value;
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
             const msgBox = document.getElementById('reg-msg');
@@ -176,15 +133,14 @@
                 const response = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ full_name, email, password })
+                    body: JSON.stringify({ grade_level, strand, email, password }) // No full_name sent
                 });
                 const data = await response.json();
 
                 if (data.success) {
-                    successBox.textContent = "Account created! Please Log In.";
+                    successBox.textContent = "Account created! Name auto-generated.";
                     successBox.style.display = 'block';
                     msgBox.style.display = 'none';
-                    // Wait 1.5 seconds then switch to login view
                     setTimeout(() => toggleForms(), 1500);
                 } else {
                     msgBox.textContent = data.message;

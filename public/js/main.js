@@ -1,32 +1,25 @@
-// public/js/main.js
+// public/js/main.js (Phase 2 Update)
 
 document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();       // 1. Run Security Check
-    updateNavigation(); // 2. Update Menu
+    checkAuth();       
+    updateNavigation();
+    checkNotifications(); // <--- New Feature: Check for red dot
     
-    // 3. Run Product Fetcher only if on catalog page
+    // Run Product Fetcher only if on catalog page
     if(document.getElementById('product-list')) {
         fetchProducts();
     }
 });
 
-// === 1. THE SECURITY GUARD ===
+// 1. SECURITY CHECK (Same as before)
 function checkAuth() {
     const userEmail = localStorage.getItem('userEmail');
     const currentPage = window.location.pathname;
-
-    // List of pages that require login
     const protectedPages = ['catalog.html', 'cart.html', 'profile.html', 'admin.html', 'checkout.html'];
-
-    // If user is NOT logged in, but tries to visit a protected page
-    // (We check if the current URL contains one of the protected filenames)
     const isProtected = protectedPages.some(page => currentPage.includes(page));
 
-    if (!userEmail && isProtected) {
-        window.location.href = 'index.html'; // Kick them out!
-    }
+    if (!userEmail && isProtected) window.location.href = 'index.html';
 
-    // If user IS logged in, but tries to visit Login page
     if (userEmail && (currentPage.endsWith('index.html') || currentPage === '/')) {
         const role = localStorage.getItem('userRole');
         if (role === 'admin') window.location.href = 'admin.html';
@@ -34,56 +27,89 @@ function checkAuth() {
     }
 }
 
-// === 2. NAVIGATION UPDATE ===
+// 2. NAVIGATION UPDATE (Bell Icon Added, Logout Removed)
 function updateNavigation() {
     const userEmail = localStorage.getItem('userEmail');
     const userRole = localStorage.getItem('userRole');
     const menu = document.querySelector('.menu');
 
     if (userEmail && menu) {
-        // Determine Profile Link
+        // Clear "Login" link if it exists
+        const loginLink = menu.querySelector('a[href="index.html"]');
+        if (loginLink) loginLink.remove();
+
+        // A. Add BELL ICON (Notification)
+        // We only show this for Students, not Admin
+        if (userRole !== 'admin' && !document.getElementById('nav-bell')) {
+            const bellBtn = document.createElement('a');
+            bellBtn.id = 'nav-bell';
+            bellBtn.href = 'profile.html'; // Clicking bell goes to profile
+            bellBtn.className = 'nav-icon';
+            bellBtn.innerHTML = `
+                🔔
+                <span id="notif-dot" class="notification-dot"></span>
+            `;
+            menu.appendChild(bellBtn);
+        }
+
+        // B. Add PROFILE Link
         let profileLink = 'profile.html';
-        let profileText = 'My Profile';
+        let profileText = 'My Account';
 
         if (userRole === 'admin') {
             profileLink = 'admin.html';
             profileText = 'Admin Panel';
         }
 
-        // Remove "Login" link if it exists
-        const loginLink = menu.querySelector('a[href="index.html"]');
-        if (loginLink) loginLink.remove();
-
-        // Add Profile Link (Avoid duplicates)
         if (!document.getElementById('nav-profile')) {
             const profileBtn = document.createElement('a');
             profileBtn.id = 'nav-profile';
             profileBtn.href = profileLink;
             profileBtn.innerHTML = `👤 ${profileText}`;
             profileBtn.style.fontWeight = "bold";
+            profileBtn.style.marginLeft = "15px";
             menu.appendChild(profileBtn);
-        }
-
-        // Add Logout Link (Avoid duplicates)
-        if (!document.getElementById('nav-logout')) {
-            const logoutBtn = document.createElement('a');
-            logoutBtn.id = 'nav-logout';
-            logoutBtn.href = "#";
-            logoutBtn.innerHTML = "Logout";
-            logoutBtn.style.color = "#ffcccc";
-            logoutBtn.onclick = logout;
-            menu.appendChild(logoutBtn);
         }
     }
 }
 
-// === 3. LOGOUT FUNCTION ===
-function logout() {
-    localStorage.clear(); // Wipe the session
-    window.location.href = 'index.html'; // Go back to login
+// 3. CHECK NOTIFICATIONS (The Red Dot Logic)
+async function checkNotifications() {
+    const email = localStorage.getItem('userEmail');
+    if (!email) return;
+
+    try {
+        const response = await fetch('/api/orders/my-orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
+        });
+
+        const orders = await response.json();
+        const dot = document.getElementById('notif-dot');
+
+        if(dot) {
+            // Check if ANY order has status 'ready_for_pickup'
+            const hasNotification = orders.some(order => order.status === 'ready_for_pickup');
+            
+            if (hasNotification) {
+                dot.style.display = 'block'; // Show Red Dot
+            } else {
+                dot.style.display = 'none';
+            }
+        }
+    } catch (error) {
+        console.error("Notif check failed", error);
+    }
 }
 
-// === 4. CATALOG LOGIC (Kept from before) ===
+// 4. LOGOUT FUNCTION (Called by the new button in Profile)
+function logout() {
+    localStorage.clear(); 
+    window.location.href = 'index.html'; 
+}
+
+// 5. CATALOG LOGIC (Standard)
 async function fetchProducts() {
     const productList = document.getElementById('product-list');
     try {
@@ -104,7 +130,5 @@ async function fetchProducts() {
             `;
             productList.appendChild(card);
         });
-    } catch (error) {
-        console.error('Error fetching products:', error);
-    }
+    } catch (error) { console.error('Error fetching products:', error); }
 }
