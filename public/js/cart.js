@@ -1,5 +1,3 @@
-// public/js/cart.js
-
 // 1. Load Cart Logic
 document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();

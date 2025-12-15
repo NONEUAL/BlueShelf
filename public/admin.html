@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Dashboard | The Blue Shelf</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Admin Specific Styles */
+        .admin-header { background: #2c3e50; color: white; padding: 20px; }
+        .order-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        .order-table th, .order-table td { padding: 15px; border-bottom: 1px solid #ddd; text-align: left; }
+        .order-table th { background-color: #f8f9fa; color: #333; }
+        
+        /* Status Badges */
+        .badge { padding: 5px 10px; border-radius: 4px; font-size: 0.9em; font-weight: bold; color: white; }
+        .status-pending { background-color: #f1c40f; color: #333; } /* Yellow */
+        .status-ready { background-color: #3498db; } /* Blue */
+        .status-completed { background-color: #27ae60; } /* Green */
+
+        /* Action Buttons */
+        .btn-action { padding: 5px 10px; cursor: pointer; border: none; border-radius: 3px; margin-right: 5px; }
+        .btn-ready { background: #3498db; color: white; }
+        .btn-complete { background: #27ae60; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-header">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>The Blue Shelf <span style="font-weight:300;">| Staff Portal</span></h2>
+            <a href="catalog.html" style="color:white;">View Store</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Incoming Orders</h1>
+        <button onclick="loadOrders()">Refresh List</button>
+        
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Student Email</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="order-rows">
+                <!-- Orders will be injected here via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

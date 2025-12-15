@@ -1,5 +1,3 @@
-// server.js - The Main Entry Point
-
 const express = require('express');
 const db = require('./config/db');
 const bodyParser = require('body-parser');

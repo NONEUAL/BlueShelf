@@ -1,4 +1,3 @@
-// routes/orderRoutes.js
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
@@ -67,6 +66,37 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Server error processing order.' });
+    }
+});
+
+router.get('/all', async (req, res) => {
+    try {
+        // We join tables to get the user's name along with the order
+        const sql = `
+            SELECT orders.id, orders.user_email, orders.total_amount, orders.status, orders.created_at 
+            FROM orders 
+            ORDER BY orders.created_at DESC
+        `;
+        const [orders] = await db.query(sql);
+        res.json(orders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// @route   PUT /api/orders/:id
+// @desc    (Admin) Update order status (Pending -> Ready -> Completed)
+router.put('/:id', async (req, res) => {
+    const orderId = req.params.id;
+    const { status } = req.body; // e.g., "ready_for_pickup"
+
+    try {
+        await db.query('UPDATE orders SET status = ? WHERE id = ?', [status, orderId]);
+        res.json({ success: true, message: `Order #${orderId} updated to ${status}` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Update failed' });
     }
 });
 
