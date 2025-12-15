@@ -1,74 +1,66 @@
 // public/js/profile.js
 
-// Check if we remembered the email from the last checkout?
 document.addEventListener('DOMContentLoaded', () => {
-    const savedEmail = localStorage.getItem('lastEmail');
-    if (savedEmail) {
-        document.getElementById('confirm-email').value = savedEmail;
-    }
+    initProfile();
 });
 
-async function loadProfile() {
-    const emailInput = document.getElementById('confirm-email').value;
+async function initProfile() {
+    // 1. Get User from Session
+    const email = localStorage.getItem('userEmail');
     
-    if (!emailInput.endsWith('@sma.edu.ph')) {
-        alert("Please enter a valid SMA email.");
-        return;
-    }
+    // Security check is already handled by main.js, but double check:
+    if (!email) return; 
 
-    // Save for next time
-    localStorage.setItem('lastEmail', emailInput);
-
-    // Switch UI
-    document.getElementById('login-check').style.display = 'none';
-    document.getElementById('profile-content').style.display = 'block';
-    document.getElementById('display-email').textContent = emailInput;
+    // 2. Update UI
+    document.getElementById('display-email').textContent = email;
+    // We try to be smart and guess the name from the email (or fetch it if we stored it)
+    const name = email.split('@')[0].replace('.', ' ').toUpperCase(); 
+    document.getElementById('display-name').textContent = name;
 
     const notifArea = document.getElementById('notifications');
     const historyArea = document.getElementById('order-history');
 
-    notifArea.innerHTML = '';
-    historyArea.innerHTML = '<p>Loading records...</p>';
-
     try {
+        // 3. Fetch Orders
         const response = await fetch('/api/orders/my-orders', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: emailInput })
+            body: JSON.stringify({ email: email })
         });
 
         const orders = await response.json();
         historyArea.innerHTML = '';
+        notifArea.innerHTML = '';
 
         if (orders.length === 0) {
-            historyArea.innerHTML = '<p>No purchases yet.</p>';
+            historyArea.innerHTML = '<p style="text-align:center; padding:20px;">No purchases yet. <a href="catalog.html">Go Shopping!</a></p>';
             return;
         }
 
         orders.forEach(order => {
-            // 1. Check for NOTIFICATIONS (Is it Ready?)
+            // Notifications
             if (order.status === 'ready_for_pickup') {
                 const alert = document.createElement('div');
                 alert.className = 'alert-box';
                 alert.innerHTML = `
-                    <div class="icon">🛍️</div>
+                    <div style="font-size:24px; margin-right:15px;">🔔</div>
                     <div>
                         <strong>READY FOR PICK-UP</strong>
-                        Your order #${order.id} (₱${order.total_amount}) is ready at the bookstore.
+                        Order #${order.id} (₱${order.total_amount}) is ready at the bookstore.
                     </div>
                 `;
                 notifArea.appendChild(alert);
             }
 
-            // 2. Build History Card
+            // History Card
             const card = document.createElement('div');
             card.className = 'product-card';
             card.style.textAlign = 'left';
             card.style.display = 'flex';
             card.style.justifyContent = 'space-between';
             card.style.alignItems = 'center';
+            card.style.marginBottom = '10px';
             
-            // Color code the status text
             let statusColor = '#666';
             if(order.status === 'ready_for_pickup') statusColor = '#004aad';
             if(order.status === 'completed') statusColor = 'green';
@@ -83,10 +75,6 @@ async function loadProfile() {
                     <span style="font-weight: bold; color: ${statusColor}; text-transform: uppercase;">
                         ${order.status.replace(/_/g, ' ')}
                     </span>
-                    <br>
-                    <button class="add-btn" style="margin-top: 5px; padding: 5px 10px; font-size: 0.8em;" onclick="alert('Receipt downloading...')">
-                        Receipt 📄
-                    </button>
                 </div>
             `;
             historyArea.appendChild(card);
@@ -94,6 +82,6 @@ async function loadProfile() {
 
     } catch (error) {
         console.error(error);
-        alert("Error loading profile");
+        historyArea.innerHTML = '<p>Error loading profile.</p>';
     }
 }
