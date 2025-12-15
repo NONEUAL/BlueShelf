@@ -36,6 +36,11 @@ nav a {
     height: 100%;
 }
 
+nav a.active-page {
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
+
 .container {
     padding: 20px;
     max-width: 1200px;
@@ -86,6 +91,11 @@ button.add-btn {
 
 button.add-btn:hover {
     background-color: #003380;
+}
+
+.btn-checkout-large {
+    width: auto;
+    padding: 15px 40px;
 }
 
 table {
@@ -254,6 +264,10 @@ th {
     text-align: center;
 }
 
+.cart-header-product {
+    text-align: left;
+}
+
 .cart-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
@@ -333,6 +347,14 @@ th {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+.cart-footer-total {
+    font-size: 1.2rem;
+}
+
+.cart-footer-amount {
+    color: #004aad;
 }
 
 .order-table {
@@ -599,6 +621,16 @@ th {
     text-align: center;
 }
 
+
+body.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #eef2f5;
+    margin: 0;
+}
+
 .auth-container {
     background: white;
     padding: 40px;
@@ -648,6 +680,17 @@ th {
     background: #003380;
 }
 
+.form-title {
+    text-align: left;
+}
+
+.form-subtitle {
+    font-size: 0.8em;
+    color: #666;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
 .toggle-link {
     margin-top: 20px;
     font-size: 14px;
@@ -684,11 +727,15 @@ th {
     gap: 10px;
 }
 
-body.login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #eef2f5;
-    margin: 0;
+.catalog-header {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.catalog-header h1 {
+    color: #333;
+}
+
+.catalog-header p {
+    color: #777;
 }

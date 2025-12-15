@@ -5,116 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart | The Blue Shelf</title>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Cart Specific Styles */
-        .cart-item {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .cart-item:hover {
-            transform: translateX(5px);
-        }
-
-        .cart-details h3 {
-            margin: 0 0 5px 0;
-            color: #333;
-        }
-        .cart-details p {
-            margin: 0;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .cart-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #004aad;
-        }
-
-        .btn-remove {
-            background: #fff;
-            color: #dc3545;
-            border: 1px solid #dc3545;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        .btn-remove:hover {
-            background: #dc3545;
-            color: white;
-        }
-
-        .total-box {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: right;
-            margin-top: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .total-label { font-size: 1.1rem; color: #555; }
-        .total-amount { font-size: 2rem; font-weight: bold; color: #004aad; }
-
-        .btn-checkout {
-            background: #004aad;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 300px;
-        }
-        .btn-checkout:hover { background: #003380; }
-    </style>
 </head>
 <body>
 
-    <!-- PHASE 2: STANDARDIZED HEADER -->
     <nav>
         <div class="logo">The Blue Shelf</div>
         <div class="menu">
             <a href="catalog.html">Shop</a>
-            <!-- The ID 'cart-count' is updated by cart.js -->
-            <a href="cart.html" style="font-weight: bold; border-bottom: 2px solid white;">Cart (<span id="cart-count">0</span>)</a>
-            <!-- main.js will automatically inject the Bell Icon and Profile Link here -->
+            <a href="cart.html" class="active-page">Cart (<span id="cart-count">0</span>)</a>
         </div>
     </nav>
 
-<div class="container">
+    <div class="container">
         <h1>Shopping Cart (<span id="header-count">0</span>)</h1>
         
-        <!-- HEADER ROW (Page 18) -->
         <div class="cart-header">
-            <div style="text-align: left;">Product</div> <!-- Aligned Left -->
+            <div class="cart-header-product">Product</div>
             <div>Unit Price</div>
             <div>Quantity</div>
             <div>Total</div>
         </div>
-
-        <!-- ITEMS CONTAINER -->
         <div id="cart-items">
-            <!-- Items injected by JS here -->
         </div>
 
-        <!-- FOOTER (Total + Checkout Button) -->
         <div class="cart-footer">
-            <div style="font-size: 1.2rem;">
-                Total: <strong style="color: #004aad;">₱<span id="total-price">0.00</span></strong>
+            <div class="cart-footer-total">
+                Total: <strong class="cart-footer-amount">₱<span id="total-price">0.00</span></strong>
             </div>
-            <button class="add-btn" style="width: auto; padding: 15px 40px;" onclick="checkout()">
+            <button class="add-btn btn-checkout-large" onclick="checkout()">
                 CHECKOUT
             </button>
         </div>
@@ -122,9 +40,8 @@
         <p id="order-message"></p>
     </div>
 
-    <!-- Required Scripts -->
-    <script src="js/main.js"></script> <!-- Security & Header Logic -->
-    <script src="js/cart.js"></script> <!-- Cart & Checkout Logic -->
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script> 
 
 </body>
 </html>

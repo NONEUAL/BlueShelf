@@ -1,17 +1,13 @@
-// public/js/main.js (Phase 2 Update)
-
 document.addEventListener('DOMContentLoaded', () => {
     checkAuth();       
     updateNavigation();
-    checkNotifications(); // <--- New Feature: Check for red dot
+    checkNotifications(); 
     
-    // Run Product Fetcher only if on catalog page
     if(document.getElementById('product-list')) {
         fetchProducts();
     }
 });
 
-// 1. SECURITY CHECK (Same as before)
 function checkAuth() {
     const userEmail = localStorage.getItem('userEmail');
     const currentPage = window.location.pathname;
@@ -27,23 +23,18 @@ function checkAuth() {
     }
 }
 
-// 2. NAVIGATION UPDATE (Bell Icon Added, Logout Removed)
 function updateNavigation() {
     const userEmail = localStorage.getItem('userEmail');
     const userRole = localStorage.getItem('userRole');
     const menu = document.querySelector('.menu');
 
     if (userEmail && menu) {
-        // Clear "Login" link if it exists
         const loginLink = menu.querySelector('a[href="index.html"]');
         if (loginLink) loginLink.remove();
-
-        // A. Add BELL ICON (Notification)
-        // We only show this for Students, not Admin
         if (userRole !== 'admin' && !document.getElementById('nav-bell')) {
             const bellBtn = document.createElement('a');
             bellBtn.id = 'nav-bell';
-            bellBtn.href = 'profile.html'; // Clicking bell goes to profile
+            bellBtn.href = 'profile.html'; 
             bellBtn.className = 'nav-icon';
             bellBtn.innerHTML = `
                 🔔
@@ -52,7 +43,6 @@ function updateNavigation() {
             menu.appendChild(bellBtn);
         }
 
-        // B. Add PROFILE Link
         let profileLink = 'profile.html';
         let profileText = 'My Account';
 
@@ -73,7 +63,6 @@ function updateNavigation() {
     }
 }
 
-// 3. CHECK NOTIFICATIONS (The Red Dot Logic)
 async function checkNotifications() {
     const email = localStorage.getItem('userEmail');
     if (!email) return;
@@ -89,11 +78,10 @@ async function checkNotifications() {
         const dot = document.getElementById('notif-dot');
 
         if(dot) {
-            // Check if ANY order has status 'ready_for_pickup'
             const hasNotification = orders.some(order => order.status === 'ready_for_pickup');
             
             if (hasNotification) {
-                dot.style.display = 'block'; // Show Red Dot
+                dot.style.display = 'block';
             } else {
                 dot.style.display = 'none';
             }
@@ -103,13 +91,11 @@ async function checkNotifications() {
     }
 }
 
-// 4. LOGOUT FUNCTION (Called by the new button in Profile)
 function logout() {
     localStorage.clear(); 
     window.location.href = 'index.html'; 
 }
 
-// 5. CATALOG LOGIC (Standard)
 async function fetchProducts() {
     const productList = document.getElementById('product-list');
     try {
@@ -128,36 +114,28 @@ async function fetchProducts() {
                 <p class="price">₱${product.price}</p>
                 <p class="stock">${product.stock_quantity} In Stock</p>
                 <button class="add-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
-                    Add to Cart 🛒
-                </button>
-            `;
+                    Add to Cart 
+                </button>`;
             productList.appendChild(card);
         });
     } catch (error) { console.error('Error fetching products:', error); }
 }
 
-// 6. FILTER FUNCTION (New!)
 function filterItems(category, buttonElement) {
-    // A. Visuals: Update the Blue Active Circle
-    // Remove 'active' from all buttons
     const buttons = document.querySelectorAll('.cat-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
-    // Add 'active' to the clicked button
     buttonElement.classList.add('active');
-
-    // B. Logic: Hide/Show Cards
     const cards = document.querySelectorAll('.product-card');
     
     cards.forEach(card => {
-        // Get the category hidden in the card
         const cardCategory = card.getAttribute('data-category');
 
         if (category === 'All') {
-            card.style.display = 'block'; // Show everything
+            card.style.display = 'block';
         } else if (cardCategory === category) {
-            card.style.display = 'block'; // Show matching
+            card.style.display = 'block'; 
         } else {
-            card.style.display = 'none';  // Hide others
+            card.style.display = 'none';  
         }
     });
 }
