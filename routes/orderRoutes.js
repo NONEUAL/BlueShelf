@@ -119,38 +119,26 @@ router.post('/my-orders', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
     try {
-        // 1. Check if user exists
         const [users] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
-        
-        if (users.length === 0) {
-            return res.status(400).json({ success: false, message: 'Invalid email or password.' });
-        }
+        if (users.length === 0) return res.status(400).json({ success: false, message: 'Invalid credentials' });
 
         const user = users[0];
-
-        // 2. Check Password (Compare plain text vs. Hash)
         const isMatch = await bcrypt.compare(password, user.password);
-        
-        if (!isMatch) {
-            return res.status(400).json({ success: false, message: 'Invalid email or password.' });
-        }
+        if (!isMatch) return res.status(400).json({ success: false, message: 'Invalid credentials' });
 
-        // 3. Success! Return the user info (excluding password)
         res.json({ 
             success: true, 
-            message: 'Login successful',
-            user: {
-                id: user.id,
-                name: user.full_name,
-                email: user.email,
-                role: user.role
-            }
+            user: { 
+                id: user.id, 
+                name: user.full_name, 
+                email: user.email, 
+                role: user.role,
+                grade: user.grade_level, // <--- We send Grade
+                strand: user.strand      // <--- We send Strand
+            } 
         });
-
     } catch (error) {
-        console.error(error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });

@@ -49,10 +49,11 @@ router.post('/login', async (req, res) => {
             success: true, 
             user: { 
                 id: user.id, 
-                name: user.full_name, // Returns "Justin Mendoza"
+                name: user.full_name, 
                 email: user.email, 
                 role: user.role,
-                grade: user.grade_level // Pass this to frontend too
+                grade: user.grade_level, // <--- We send Grade
+                strand: user.strand      // <--- We send Strand
             } 
         });
     } catch (error) {

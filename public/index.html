@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <script>
+<script>
         function toggleForms() {
             const loginBox = document.getElementById('login-box');
             const regBox = document.getElementById('register-box');
@@ -85,12 +85,15 @@
             regBox.classList.toggle('hidden');
         }
 
-        // LOGIN Logic
+        // ================= HANDLE LOGIN =================
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
             const msgBox = document.getElementById('login-msg');
+
+            // Reset message
+            msgBox.style.display = 'none';
 
             try {
                 const response = await fetch('/api/auth/login', {
@@ -101,25 +104,31 @@
                 const data = await response.json();
 
                 if (data.success) {
+                    // 1. Save Basic Info
                     localStorage.setItem('userEmail', data.user.email);
                     localStorage.setItem('userRole', data.user.role);
-                    // We save the generated name so we can display it later
-                    localStorage.setItem('userName', data.user.name); 
-                    
+                    localStorage.setItem('userName', data.user.name);
+            
+                    // 2. Save Grade and Strand
+                    localStorage.setItem('userGrade', data.user.grade);
+                    localStorage.setItem('userStrand', data.user.strand);
+            
+                    // 3. Redirect
                     if (data.user.role === 'admin') window.location.href = 'admin.html';
                     else window.location.href = 'catalog.html';
                 } else {
+                    // FIX: Show error message if login fails
                     msgBox.textContent = data.message;
                     msgBox.style.display = 'block';
                 }
             } catch (err) {
                 console.error(err);
-                msgBox.textContent = "Server Error";
+                msgBox.textContent = "Server Connection Error";
                 msgBox.style.display = 'block';
             }
         });
 
-        // REGISTER Logic (Removed Full Name)
+        // ================= HANDLE REGISTER =================
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const grade_level = document.getElementById('reg-grade').value;
@@ -133,7 +142,7 @@
                 const response = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ grade_level, strand, email, password }) // No full_name sent
+                    body: JSON.stringify({ grade_level, strand, email, password })
                 });
                 const data = await response.json();
 
