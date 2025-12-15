@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment Variables (SECRETS)
+.env
+
+# Database Files (SQLite)
+# We ignore these because they contain live data and binary code.
+# The server will recreate them automatically if missing.
+*.db
+*.db-journal
+*.sqlite
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+pids
+*.pid

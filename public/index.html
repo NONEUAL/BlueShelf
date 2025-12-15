@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | The Blue Shelf</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Specific styles for the login box */
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #004aad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover { background: #003380; }
+        .message { margin-top: 15px; font-size: 14px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo">
+            <!-- You can add your logo image here later -->
+            <h2 style="color: #004aad;">The Blue Shelf</h2>
+        </div>
+        
+        <h3>Student Registration</h3>
+        
+        <form id="registerForm">
+            <input type="text" id="fullname" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="student@sma.edu.ph" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <p class="message" id="responseMessage"></p>
+        
+        <p style="margin-top: 20px; font-size: 12px;">
+            Already have an account? <a href="#">Log In</a>
+        </p>
+    </div>
+
+    <script>
+        // CLIENT-SIDE SCRIPT
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop the page from reloading
+
+            const fullName = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageBox = document.getElementById('responseMessage');
+
+            // Clear previous messages
+            messageBox.textContent = 'Processing...';
+            messageBox.className = 'message';
+
+            try {
+                // Send data to Backend
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ full_name: fullName, email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    messageBox.textContent = data.message;
+                    messageBox.classList.add('success');
+                    // Optional: Redirect to Catalog after 2 seconds
+                    setTimeout(() => { window.location.href = 'catalog.html'; }, 2000);
+                } else {
+                    messageBox.textContent = data.message;
+                    messageBox.classList.add('error');
+                }
+
+            } catch (error) {
+                console.error(error);
+                messageBox.textContent = 'System Error. Try again.';
+                messageBox.classList.add('error');
+            }
+        });
+    </script>
+</body>
+</html>

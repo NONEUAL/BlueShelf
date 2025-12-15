@@ -1,0 +1,79 @@
+/* public/css/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f0f4f8;
+}
+
+nav {
+    background-color: #004aad; /* The Blue Shelf Color */
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; }
+
+.container { padding: 20px; max-width: 1200px; margin: 0 auto; }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* The Product Card Design */
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.product-card:hover { transform: translateY(-5px); }
+
+.price { color: #004aad; font-size: 1.2rem; font-weight: bold; }
+.stock { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+
+button.add-btn {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+button.add-btn:hover { background-color: #003380; }
+
+/* Cart Styles */
+table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
+th, td { padding: 15px; text-align: center; border-bottom: 1px solid #ddd; }
+th { background: #f8f9fa; color: #333; }
+
+.qty-btn {
+    background: #004aad; color: white; border: none;
+    width: 30px; height: 30px; border-radius: 5px; cursor: pointer;
+}
+.qty-btn:hover { background: #003380; }
+
+.remove-btn {
+    background: #ff4d4d; color: white; border: none;
+    padding: 5px 10px; border-radius: 5px; cursor: pointer;
+}
+
+.checkout-bar {
+    background: white; padding: 20px; margin-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 3px solid #004aad;
+}
+
+.checkout-btn {
+    background: #004aad; color: white; padding: 15px 30px;
+    border: none; border-radius: 30px; font-weight: bold; cursor: pointer;
+}

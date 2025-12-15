@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | The Blue Shelf</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Simple Cart Styles */
+        .cart-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .total-box {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004aad;
+        }
+        .btn-checkout {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-checkout:hover { background: #218838; }
+        .btn-remove { background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">The Blue Shelf</div>
+        <div class="menu">
+            <a href="catalog.html">Shop</a>
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items">
+            <!-- Items appear here -->
+            <p>Your cart is empty.</p>
+        </div>
+
+        <div class="total-box">
+            Total: ₱<span id="total-price">0.00</span>
+            <br>
+            <button class="btn-checkout" onclick="checkout()">Place Order</button>
+        </div>
+        <p id="order-message"></p>
+    </div>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>
