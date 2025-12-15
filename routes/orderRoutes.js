@@ -100,4 +100,22 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.post('/my-orders', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const sql = `
+            SELECT * FROM orders 
+            WHERE user_email = ? 
+            ORDER BY created_at DESC
+        `;
+        const [orders] = await db.query(sql, [email]);
+        res.json(orders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+
 module.exports = router;

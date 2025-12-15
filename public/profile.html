@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | The Blue Shelf</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Profile Specific Styles */
+        .profile-header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #555;
+        }
+
+        /* Notification Banner (The "Ready" Alert) */
+        .notification-area { margin-bottom: 20px; }
+        .alert-box {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .alert-box .icon { font-size: 24px; margin-right: 15px; }
+        .alert-box strong { font-size: 1.1em; display: block; }
+
+        /* Login Simulation Input */
+        .auth-check { text-align: center; margin-top: 50px; }
+        .auth-check input { padding: 10px; width: 250px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">The Blue Shelf</div>
+        <div class="menu">
+            <a href="catalog.html">Shop</a>
+            <a href="cart.html">Cart</a>
+            <a href="profile.html">My Account</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- STEP 1: Ask who is looking (Since we aren't using complex cookies) -->
+        <div id="login-check" class="auth-check">
+            <h2>View My Profile</h2>
+            <p>Please confirm your email to view your notifications.</p>
+            <input type="email" id="confirm-email" placeholder="student@sma.edu.ph">
+            <button class="add-btn" style="width: auto;" onclick="loadProfile()">View Orders</button>
+        </div>
+
+        <!-- STEP 2: The actual profile (Hidden until email is entered) -->
+        <div id="profile-content" style="display: none;">
+            
+            <!-- User Info Card -->
+            <div class="profile-header">
+                <div class="user-avatar">👤</div>
+                <h2 id="display-email">student@sma.edu.ph</h2>
+                <p>Grade 12 - STEM</p>
+            </div>
+
+            <!-- NOTIFICATIONS SECTION (Page 20) -->
+            <div id="notifications" class="notification-area">
+                <!-- Alerts go here -->
+            </div>
+
+            <!-- ORDER HISTORY SECTION (Page 21) -->
+            <h3>My Recent Purchases</h3>
+            <div id="order-history" class="product-grid" style="grid-template-columns: 1fr;">
+                <!-- Orders go here -->
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>
