@@ -115,8 +115,6 @@ th { background: #f8f9fa; color: #333; }
     color: white;
 }
 
-/* --- HEADER ALIGNMENT FIXES --- */
-
 /* 1. The Container for the links on the right */
 .menu {
     display: flex;           /* This forces items into a horizontal row */

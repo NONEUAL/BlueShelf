@@ -92,9 +92,6 @@
             const password = document.getElementById('login-password').value;
             const msgBox = document.getElementById('login-msg');
 
-            // Reset message
-            msgBox.style.display = 'none';
-
             try {
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
@@ -104,26 +101,24 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    // 1. Save Basic Info
+                    // SAVE DATA TO BROWSER
                     localStorage.setItem('userEmail', data.user.email);
                     localStorage.setItem('userRole', data.user.role);
                     localStorage.setItem('userName', data.user.name);
-            
-                    // 2. Save Grade and Strand
-                    localStorage.setItem('userGrade', data.user.grade);
-                    localStorage.setItem('userStrand', data.user.strand);
-            
-                    // 3. Redirect
+                    
+                    // NEW: Save Grade and Strand
+                    localStorage.setItem('userGrade', data.user.grade || 'N/A');
+                    localStorage.setItem('userStrand', data.user.strand || 'N/A');
+                    
                     if (data.user.role === 'admin') window.location.href = 'admin.html';
                     else window.location.href = 'catalog.html';
                 } else {
-                    // FIX: Show error message if login fails
                     msgBox.textContent = data.message;
                     msgBox.style.display = 'block';
                 }
             } catch (err) {
                 console.error(err);
-                msgBox.textContent = "Server Connection Error";
+                msgBox.textContent = "Server Error";
                 msgBox.style.display = 'block';
             }
         });

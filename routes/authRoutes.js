@@ -1,9 +1,10 @@
+// routes/authRoutes.js
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db'); 
 const bcrypt = require('bcryptjs');
 
-// 1. REGISTER (Updated: No full_name in body, we generate it)
+// 1. REGISTER
 router.post('/register', async (req, res) => {
     const { email, password, grade_level, strand } = req.body;
 
@@ -12,13 +13,11 @@ router.post('/register', async (req, res) => {
     }
 
     try {
+        // Auto-Generate Name: justin.mendoza -> Justin Mendoza
         let namePart = email.split('@')[0];
-        
-        // 2. Split by dot, Capitalize, Join with Space -> "Justin Mendoza"
         const generatedName = namePart.split('.').map(word => {
             return word.charAt(0).toUpperCase() + word.slice(1);
         }).join(' ');
-        // --------------------------------
 
         const hashedPassword = await bcrypt.hash(password, 10);
         
@@ -34,7 +33,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// 2. LOGIN (Remains the same)
+// 2. LOGIN (UPDATED: Now sends 'strand' and 'grade_level')
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -52,8 +51,8 @@ router.post('/login', async (req, res) => {
                 name: user.full_name, 
                 email: user.email, 
                 role: user.role,
-                grade: user.grade_level, // <--- We send Grade
-                strand: user.strand      // <--- We send Strand
+                grade: user.grade_level, // Send Grade
+                strand: user.strand      // Send Strand <--- NEW
             } 
         });
     } catch (error) {
@@ -61,19 +60,18 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// 3. UPDATE PROFILE NAME (New Feature!)
+// 3. UPDATE PROFILE NAME
 router.put('/update-profile', async (req, res) => {
     const { email, newName } = req.body;
     try {
         await db.query('UPDATE users SET full_name = ? WHERE email = ?', [newName, email]);
         res.json({ success: true, message: 'Name updated successfully.' });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ success: false, message: 'Update failed.' });
     }
 });
 
-// 4. GET ALL USERS & DELETE (For Admin)
+// 4. ADMIN ROUTES
 router.get('/all', async (req, res) => {
     try {
         const [users] = await db.query('SELECT id, full_name, email, role, grade_level, strand FROM users');

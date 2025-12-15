@@ -112,25 +112,17 @@
     </nav>
 
     <div class="container">
-        
-        <!-- PROFILE CONTENT -->
-        <div id="profile-content">
-            
-            <!-- 1. User Info Card -->
-            <div class="profile-header">
+        <div class="profile-header">
                 <div class="user-avatar">👤</div>
-                
-                <!-- Name (Editable via JS) -->
-                <h2 id="display-name">Loading Name...</h2>
-                
-                <!-- Email -->
-                <p id="display-email" style="margin-bottom: 5px;">student@sma.edu.ph</p>
-                
-                <!-- Grade & Strand Badge (Updated via JS) -->
-                <p id="display-badge" class="badge-pill">Loading Info...</p>
+        
+                <h2 id="display-name">Student Name</h2>
+                <p id="display-email">student@sma.edu.ph</p>
+                <p id="display-badge" class="badge" style="display:inline-block; background:#eee; padding:5px 10px; border-radius:10px; margin-top:5px; font-weight:bold; color:#555;">
+                    Loading...
+                </p>
 
-                <!-- Logout Button -->
-                <button class="btn-logout" onclick="logout()">LOGOUT</button>
+                <br>
+                <button class="btn btn-logout" onclick="logout()">LOGOUT</button>
             </div>
 
             <!-- 2. Notifications Area (Appears if order is ready) -->
