@@ -212,3 +212,95 @@ nav {
     box-shadow: 0 4px 10px rgba(0,74,173, 0.4);
 }
 
+.cart-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr; /* Columns width */
+    padding: 15px;
+    background-color: #e3effd;
+    color: #004aad;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* The Product Rows */
+.cart-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+    padding: 20px 15px;
+    background: white;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    text-align: center;
+}
+
+/* First column (Product Info) alignment */
+.cart-row .item-info {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* The Blue Item Placeholder (Since we don't have real images yet) */
+.item-img-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: #003380;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+}
+
+/* Quantity Stepper: [-] [ 1 ] [+] */
+.qty-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-qty {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-qty:hover { background-color: #003380; }
+
+.qty-display {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Trash Icon */
+.btn-trash {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #dc3545;
+    transition: transform 0.2s;
+}
+.btn-trash:hover { transform: scale(1.2); }
+
+/* Total Bar at bottom */
+.cart-footer {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}

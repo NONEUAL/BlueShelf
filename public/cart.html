@@ -32,12 +32,6 @@
             font-size: 0.9rem;
         }
 
-        .cart-actions {
-            text-align: right;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
         .cart-price {
             font-size: 1.2rem;
             font-weight: bold;
@@ -99,22 +93,33 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h1>Your Shopping Cart</h1>
+<div class="container">
+        <h1>Shopping Cart (<span id="header-count">0</span>)</h1>
         
-        <!-- Cart Items List -->
-        <div id="cart-items">
-            <!-- JS will inject items here -->
-            <p style="text-align: center; padding: 20px;">Loading your cart...</p>
+        <!-- HEADER ROW (Page 18) -->
+        <div class="cart-header">
+            <div style="text-align: left;">Product</div> <!-- Aligned Left -->
+            <div>Unit Price</div>
+            <div>Quantity</div>
+            <div>Total</div>
         </div>
 
-        <!-- Checkout Section -->
-        <div class="total-box">
-            <span class="total-label">Total Amount:</span><br>
-            <span class="total-amount">₱<span id="total-price">0.00</span></span>
-            <br>
-            <button class="btn-checkout" onclick="checkout()">Checkout ➔</button>
+        <!-- ITEMS CONTAINER -->
+        <div id="cart-items">
+            <!-- Items injected by JS here -->
         </div>
+
+        <!-- FOOTER (Total + Checkout Button) -->
+        <div class="cart-footer">
+            <div style="font-size: 1.2rem;">
+                Total: <strong style="color: #004aad;">₱<span id="total-price">0.00</span></strong>
+            </div>
+            <button class="add-btn" style="width: auto; padding: 15px 40px;" onclick="checkout()">
+                CHECKOUT
+            </button>
+        </div>
+
+        <p id="order-message"></p>
     </div>
 
     <!-- Required Scripts -->
