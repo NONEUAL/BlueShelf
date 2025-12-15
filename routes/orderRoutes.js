@@ -155,6 +155,27 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get('/all', async (req, res) => {
+    try {
+        const [users] = await db.query('SELECT id, full_name, email, role, created_at FROM users ORDER BY created_at DESC');
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
 
+// @route   DELETE /api/auth/:id
+// @desc    (Admin) Delete a user account
+router.delete('/:id', async (req, res) => {
+    const userId = req.params.id;
+    try {
+        await db.query('DELETE FROM users WHERE id = ?', [userId]);
+        res.json({ success: true, message: 'User deleted successfully.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Delete failed.' });
+    }
+});
 
 module.exports = router;
