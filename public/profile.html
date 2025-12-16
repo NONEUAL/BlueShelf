@@ -17,25 +17,26 @@
     </nav>
 
     <div class="container">
+        <!-- Profile Header Card -->
         <div class="profile-header">
             <div class="user-avatar">👤</div>
-    
             <h2 id="display-name">Student Name</h2>
             <p id="display-email">student@sma.edu.ph</p>
-            <p id="display-badge" class="badge" style="display:inline-block; background:#eee; padding:5px 10px; border-radius:10px; margin-top:5px; font-weight:bold; color:#555;">
-                Loading...
-            </p>
-
-            <br>
-            <button class="btn btn-logout" onclick="logout()">LOGOUT</button>
+            <span id="display-badge" class="badge-pill">Loading...</span>
+            <button class="btn-logout" onclick="logout()">LOGOUT</button>
         </div>
 
+        <!-- Notifications Section -->
         <div id="notifications" class="notification-area"></div>
 
-        <h3 style="border-bottom: 2px solid #004aad; padding-bottom: 10px; display: inline-block;">My Recent Purchases</h3>
+        <!-- Order History Section -->
+        <h3 class="section-title">My Recent Purchases</h3>
         
-        <div id="order-history" class="product-grid" style="grid-template-columns: 1fr;">
-            <p style="color: #888;">Checking records...</p>
+        <div id="order-history" class="order-history-grid">
+            <div class="empty-state">
+                <div class="empty-state-icon">📦</div>
+                <p class="empty-state-text">Checking records...</p>
+            </div>
         </div>
     </div>
 
