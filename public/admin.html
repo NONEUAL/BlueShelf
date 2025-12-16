@@ -6,6 +6,37 @@
     <title>Staff Portal | The Blue Shelf</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
+<div class="section-header">
+    <h2 style="margin:0; color: #2c3e50;">Manage Inventory</h2>
+</div>
+<div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+    <form id="addProductForm" style="display: flex; gap: 10px; align-items: flex-end;">
+        <div style="flex: 2;">
+            <label>Product Name</label>
+            <input type="text" id="p-name" placeholder="Item Name" required style="width:100%; padding:8px;">
+        </div>
+        <div style="flex: 1;">
+            <label>Category</label>
+            <select id="p-cat" style="width:100%; padding:8px;">
+                <option>Stationery</option>
+                <option>Uniform</option>
+                <option>Sanitary</option>
+                <option>Others</option>
+            </select>
+        </div>
+        <div style="flex: 1;">
+            <label>Price</label>
+            <input type="number" id="p-price" placeholder="0.00" required style="width:100%; padding:8px;">
+        </div>
+        <div style="flex: 1;">
+            <label>Stock</label>
+            <input type="number" id="p-stock" placeholder="Qty" required style="width:100%; padding:8px;">
+        </div>
+        <button type="submit" class="btn-action btn-ready" style="height: 35px;">+ Add Item</button>
+    </form>
+</div>
+
 <body>
 
     <nav>

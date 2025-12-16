@@ -166,4 +166,18 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const { status, requesterEmail } = req.body; // Pass email from frontend
+
+    // 1. Verify User is Admin in DB
+    const [user] = await db.query("SELECT role FROM users WHERE email = ?", [requesterEmail]);
+    if (!user || user[0].role !== 'admin') {
+        return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    // 2. Proceed with update
+    await db.query('UPDATE orders SET status = ? WHERE id = ?', [status, req.params.id]);
+    res.json({ success: true });
+});
+
 module.exports = router;

@@ -71,7 +71,22 @@ router.put('/update-profile', async (req, res) => {
     }
 });
 
-// 4. ADMIN ROUTES
+
+// 4. Checkout
+router.post('/add', async (req, res) => {
+    const { name, category, price, stock } = req.body;
+    try {
+        await db.query(
+            'INSERT INTO products (name, category, price, stock_quantity) VALUES (?, ?, ?, ?)',
+            [name, category, price, stock]
+        );
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// 5. ADMIN ROUTES
 router.get('/all', async (req, res) => {
     try {
         const [users] = await db.query('SELECT id, full_name, email, role, grade_level, strand FROM users');

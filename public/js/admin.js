@@ -162,3 +162,25 @@ async function deleteUser(id, email) {
         alert("System Error during deletion.");
     }
 }
+
+document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('p-name').value;
+    const category = document.getElementById('p-cat').value;
+    const price = document.getElementById('p-price').value;
+    const stock = document.getElementById('p-stock').value;
+
+    const res = await fetch('/api/products/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, category, price, stock })
+    });
+    
+    if(res.ok) {
+        alert("Product Added!");
+        e.target.reset();
+        // You might want to reload a product table here if you had one
+    } else {
+        alert("Error adding product");
+    }
+});
